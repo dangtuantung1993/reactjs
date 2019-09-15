@@ -56,11 +56,11 @@ const verifyJWT = async (tokenKey) => {
     try {          
         let decodedJson = await jwt.verify(tokenKey, secretString)
         if(Date.now() / 1000 >  decodedJson.exp) {
-            throw "Token hết hạn, mời bạn login lại"
+            throw "Token expires"
         }
         let foundUser = await User.findById(decodedJson.id)
         if (!foundUser) {
-            throw "Ko tìm thấy user với token này"
+            throw "No user found with this token"
         }
         return foundUser
     } catch(error) {

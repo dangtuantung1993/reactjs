@@ -52,7 +52,7 @@ router.get('/info', async (req, res) => {
         let info = await verifyJWT(tokenKey)
 		res.json({
 			result: 'ok',
-            message: 'Verify Json Web Token thành công',
+            message: 'Verify Json Web Token success',
             infoUser: {
                 id: info._id,
                 name: info.name,
@@ -62,7 +62,7 @@ router.get('/info', async (req, res) => {
 	} catch(error) {
 		res.json({
             result: 'failed',
-            message: `Lỗi kiểm tra token : ${error}`
+            message: `Verify token failed: ${error}`
         })
 	}
 })
