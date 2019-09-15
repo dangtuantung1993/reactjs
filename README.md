@@ -1,12 +1,11 @@
 Backend
-## cd nodejs
+### cd nodejs
 In forder nodejs
 ### npm install
 
 ### node index.js
-Start Server port 3000
-http://localhost:3000
-Front-end
+Start Server port 3000   http://localhost:3000
+### Front-end
 ### cd reactjs
 In forder reactjs
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
