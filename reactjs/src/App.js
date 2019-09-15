@@ -1,18 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
+import { login } from './utils.js';
 
 class App extends React.Component {
     state = {
         email: '',
         password: '',
-        token: cookies.get('token'),
-        message: ''
+        token:''
     }
-
     onChange = (e) => {
         if (e.keyCode === 13) {
             this.onSubmit();
@@ -22,48 +18,12 @@ class App extends React.Component {
             });
         }
     }
-
     onSubmit = async () => {
-        try {
-            var userObj = {
-                email: this.state.email,
-                password: this.state.password
-            }
-            const res = await fetch(' http://localhost:3000/users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userObj)
-            });
-
-            const data = await res.json();
-
-            if (data.tokenKey) {
-                this.setState({
-                    token: data.tokenKey,
-                    message: ''
-                });
-
-                var date = new Date();
-                date.setTime(date.getTime() + (30 * 1000));
-
-                cookies.set('token', data.tokenKey, {
-                    path: '/',
-                    expires: date,
-                });
-            } else {
-                this.setState({
-                    message: data.message
-                });
-            }
-
-        } catch (e) {
-            console.log('Post error', e.message);
-        }
-
+        let email = this.state.email
+        let password = this.state.password
+        await login(email, password)
+        
     }
-
     render() {
         return (
             <div className="App">

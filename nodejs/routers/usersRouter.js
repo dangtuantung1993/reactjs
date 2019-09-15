@@ -46,25 +46,35 @@ router.post('/login', async(req, res)=>{
 })
 //api get info user
 router.get('/info', async (req, res) => {		
-    let tokenKey = req.headers['x-access-token']
-    try {
-		//Verify token
-        let info = await verifyJWT(tokenKey)
-		res.json({
-			result: 'ok',
-            message: 'Verify Json Web Token success',
-            infoUser: {
-                id: info._id,
-                name: info.name,
-                email: info.email
-            }	  		
-	  	})	
-	} catch(error) {
-		res.json({
-            result: 'failed',
-            message: `Verify token failed: ${error}`
+    let tokenKey = req.headers['authorization'];
+    if (tokenKey.startsWith('Bearer ')) {
+        tokenKey = tokenKey.slice(7, tokenKey.length);
+        try {
+            //Verify token
+            let info = await verifyJWT(tokenKey)
+            res.json({
+                result: 'ok',
+                message: 'Verify Json Web Token success',
+                infoUser: {
+                    id: info._id,
+                    name: info.name,
+                    email: info.email
+                }	  		
+              })	
+        } catch(error) {
+            res.json({
+                result: 'failed',
+                message: `Verify token failed: ${error}`
+            })
+        }
+      }
+      else{
+        res.json({
+            result:'failed',
+            message:'Auth token is not supplied'
         })
-	}
+      }
+    
 })
 
 module.exports =router
