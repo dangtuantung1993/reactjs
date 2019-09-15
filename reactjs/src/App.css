@@ -31,3 +31,18 @@
     transform: rotate(360deg);
   }
 }
+.sr-only{
+  margin-right: 5px;
+}
+.form-control{
+  margin-bottom: 5px;
+}
+.error{
+  font-size: 15px;
+  color: red;
+  margin-bottom: 5px;
+}
+.login{
+  font-size:25px;
+  color: greenyellow;
+}

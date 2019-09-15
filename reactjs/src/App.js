@@ -69,8 +69,8 @@ class App extends React.Component {
             <div className="App">
                 <header className="App-header">
                     {this.state.token ?
-                        <div>
-                            Login successfull
+                        <div className="login">
+                            Login successfully
                         </div>
                         : <div>
                             <img src={logo} className="App-logo" alt="logo" />
@@ -92,7 +92,7 @@ class App extends React.Component {
                                     onChange={e => this.onChange(e)}
                                     onKeyUp={e => this.onChange(e)}
                                     value={this.state.password} />
-                                {this.state.message}
+                                <div className="error">{this.state.message}</div>
                                 <button className="btn btn-lg btn-primary btn-block" type="button"
                                     onClick={() => this.onSubmit()}>Sign in
                         </button>
