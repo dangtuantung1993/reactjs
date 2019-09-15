@@ -1,13 +1,15 @@
-Create Backend
+Backend
+## cd nodejs
+In forder nodejs
 ### npm install
 
 ### node index.js
 Start Server
 
-
+Front-end
+### cd reactjs
+In forder reactjs
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-
 ## Available Scripts
 
 In the project directory, you can run:
