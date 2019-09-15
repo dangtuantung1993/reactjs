@@ -1,13 +1,18 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Cookies from 'universal-cookie';
 import { login } from './utils.js';
+
+const cookies = new Cookies();
 
 class App extends React.Component {
     state = {
         email: '',
         password: '',
-        token:''
+        token: cookies.get('token'),
+        message: '',
+        data:''
     }
     onChange = (e) => {
         if (e.keyCode === 13) {
@@ -21,8 +26,30 @@ class App extends React.Component {
     onSubmit = async () => {
         let email = this.state.email
         let password = this.state.password
-        await login(email, password)
-        
+        try {
+            await login(email,password)
+                .then(res => {
+                   this.data = res.data
+                })
+            if (this.data.tokenKey) {
+                this.setState({
+                    token: this.data.tokenKey,
+                    message: ''
+                });
+                var date = new Date();
+                date.setTime(date.getTime() + (30 * 1000));
+                cookies.set('token', this.data.tokenKey, {
+                    path: '/',
+                    expires: date,
+                });
+            } else {
+                this.setState({
+                    message: this.data.message
+                });
+            }
+        } catch (e) {
+            console.log('Post error', e.message);
+        }
     }
     render() {
         return (
